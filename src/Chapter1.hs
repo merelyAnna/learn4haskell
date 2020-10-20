@@ -559,8 +559,8 @@ Casual reminder about adding top-level type signatures for all functions :)
 
 mid :: Int -> Int -> Int -> Int
 mid x y z  
-  | (x > y && x < z) || (x > z && x < y) = x
-  | (y > x && y < z) || (y > z && y < x) = y
+  | (x >= y && x <= z) || (x >= z && x <= y) = x
+  | (y >= x && y <= z) || (y >= z && y <= x) = y
   | otherwise = z
 
 {- |
@@ -647,10 +647,10 @@ specifying complex expressions.
 -}
 
 sumLast2 :: Int -> Int
-sumLast2 n = lastDigit (div n 10) + lastDigit (n)
+sumLast2 n = lastDigit (div (abs n) 10) + lastDigit n
   where
     lastDigit :: Int -> Int
-    lastDigit x = mod x 10
+    lastDigit x = mod (abs x) 10
 
 {- |
 =💣= Task 10*
@@ -672,8 +672,8 @@ aren't ready for this boss yet!
 
 firstDigit :: Int -> Int
 firstDigit n
-  | n < 10 = n
-  | otherwise = firstDigit(div n 10) 
+  | (abs n) < 10 = (abs n)
+  | otherwise = firstDigit(div (abs n) 10) 
 -- firstDigit = if n < 10 then n else firstDigit(div n 10) - Variable not in scope... why?
 
 

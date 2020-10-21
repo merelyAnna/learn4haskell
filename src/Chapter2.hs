@@ -40,6 +40,8 @@ Now, if you are ready, bring it on!
 
 module Chapter2 where
 
+import Data.List (elemIndices)
+
 {-
 =🛡= Imports
 
@@ -152,11 +154,11 @@ Append two lists:
 
 Prepend an element at the beginning of a list:
 >>> :t (:)
-
+(:) :: a -> [a] -> [a]
 
 Reverse a list:
 >>> :t reverse
-(:) :: a -> [a] -> [a]
+reverse :: [a] -> [a]
 
 Take first N elements of a list:
 >>> :t take
@@ -348,8 +350,7 @@ from it!
 ghci> :l src/Chapter2.hs
 -}
 subList :: Int -> Int -> [a] -> [a]
-subList = error "subList: Not implemented!"
-
+subList x y a = if x >= 0 && x < y then drop x (take ((length a - y) + 1) a) else []
 {- |
 =⚔️= Task 4
 
@@ -360,8 +361,8 @@ Implement a function that returns only the first half of a given list.
 >>> firstHalf "bca"
 "b"
 -}
--- PUT THE FUNCTION TYPE IN HERE
-firstHalf l = error "firstHalf: Not implemented!"
+firstHalf :: [a] -> [a]
+firstHalf l = take (div (length l) 2) l
 
 
 {- |
@@ -513,7 +514,8 @@ True
 >>> isThird42 [42, 42, 0, 42]
 False
 -}
-isThird42 = error "isThird42: Not implemented!"
+isThird42 :: [Int] -> Bool -- Why does it need to be [Int]? I get an error with [a]
+isThird42 l = if (elem 2 (elemIndices 42 l)) then True else False
 
 
 {- |

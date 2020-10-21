@@ -451,6 +451,8 @@ Implement the function that takes an integer value and returns the next 'Int'.
 
 next :: Int -> Int
 next x = x + 1 -- x++ and ++x also work; is there any difference between these?
+-- in Haskell there is a standard function for that – succ
+--next x = succ x
 
 
 {- |
@@ -524,7 +526,7 @@ branches because it is an expression and it must always return some value.
 -}
 
 closestToZero :: Int -> Int -> Int
-closestToZero x y = if (abs x) < (abs y) then x else y
+closestToZero x y = if abs x < abs y then x else y
 
 {- |
 =⚔️= Task 7
@@ -646,11 +648,27 @@ Try to introduce variables in this task (either with let-in or where) to avoid
 specifying complex expressions.
 -}
 
+{- | solution version 1
 sumLast2 :: Int -> Int
 sumLast2 n = lastDigit (div (abs n) 10) + lastDigit n
   where
     lastDigit :: Int -> Int
     lastDigit x = mod (abs x) 10
+-}
+
+{- |
+One hint to make the solution shorter: 
+the standard library has the divMod function, that actually combines inside both div and mod. 
+And this is exactly what you use!
+So you could write it this way:
+(x, y) = divMod (abs n) 10
+-}
+
+-- solution version 2
+sumLast2 :: Int -> Int
+sumLast2 n = 
+  let (x, y) = divMod (abs n) 10
+  in mod x 10 + y
 
 {- |
 =💣= Task 10*
@@ -670,11 +688,22 @@ You need to use recursion in this task. Feel free to return to it later, if you
 aren't ready for this boss yet!
 -}
 
+{- | solution version 1
 firstDigit :: Int -> Int
 firstDigit n
   | (abs n) < 10 = (abs n)
-  | otherwise = firstDigit(div (abs n) 10) 
--- firstDigit = if n < 10 then n else firstDigit(div n 10) - Variable not in scope... why?
+  | otherwise = firstDigit(div (abs n) 10)
+-}
+
+-- solution version 1
+firstDigit :: Int -> Int
+firstDigit n = getFirst (abs n)
+  where 
+    getFirst :: Int -> Int
+    getFirst x 
+      | x < 10 = x
+      | otherwise = firstDigit(div x 10) 
+
 
 
 {-

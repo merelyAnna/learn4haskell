@@ -40,7 +40,7 @@ Now, if you are ready, bring it on!
 
 module Chapter2 where
 
-import Data.List (elemIndices)
+import Data.List (elemIndices) -- Why was I able to use take and drop without importing this but not elemIndices?
 
 {-
 =🛡= Imports
@@ -517,6 +517,11 @@ False
 isThird42 :: [Int] -> Bool -- Why does it need to be [Int]? I get an error with [a]
 isThird42 l = if (elem 2 (elemIndices 42 l)) then True else False
 
+{- |
+isThird42 :: [Int] -> Bool
+isThird42 (_ : _  : 42 : _) = True -- Why do I need last _? 
+isThird42 _ = False
+-}
 
 {- |
 =🛡= Recursion

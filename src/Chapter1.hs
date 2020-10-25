@@ -704,7 +704,15 @@ firstDigit n = getFirst (abs n)
       | x < 10 = x
       | otherwise = firstDigit(div x 10) 
 
-
+{- Alternative solution
+firstDigit :: Int -> Int
+firstDigit n
+    | absN < 10 = absN
+    | otherwise = firstDigit (div absN 10)
+  where
+    absN :: Int
+    absN = abs n
+-}
 
 {-
 You did it! Now it is time to open pull request with your changes

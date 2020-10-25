@@ -625,8 +625,14 @@ Implement a function that duplicates each element of the list
 
 -}
 duplicate :: [a] -> [a]
-duplicate = error "duplicate: Not implemented!"
+duplicate [] = []
+duplicate l = head l : head l : duplicate (tail l)
 
+{- | Alternative Solution
+duplicate :: [a] -> [a]
+duplicate [] = []
+duplicate (firstElem : restOfList) = firstElem : firstElem : duplicate restOfList
+-}
 
 {- |
 =⚔️= Task 7
@@ -640,7 +646,10 @@ Write a function that takes elements of a list only on even positions.
 >>> takeEven [2, 1, 3, 5, 4]
 [2,3,4]
 -}
-takeEven = error "takeEven: Not implemented!"
+takeEven :: [a] -> [a]
+takeEven [] = []
+takeEven [onlyElem] = [onlyElem]
+takeEven (firstElem : secondElem : restOfList) = firstElem : takeEven restOfList
 
 {- |
 =🛡= Higher-order functions
@@ -747,7 +756,7 @@ value of the element itself
 🕯 HINT: Use combination of 'map' and 'replicate'
 -}
 smartReplicate :: [Int] -> [Int]
-smartReplicate l = error "smartReplicate: Not implemented!"
+smartReplicate l = concat (map(\x -> replicate x x ) l)
 
 {- |
 =⚔️= Task 9
@@ -760,7 +769,8 @@ the list with only those lists that contain a passed element.
 
 🕯 HINT: Use the 'elem' function to check whether an element belongs to a list
 -}
-contains = error "contains: Not implemented!"
+contains :: Int -> [[Int]] -> [[Int]]
+contains num l = filter (elem num) l
 
 
 {- |
@@ -800,13 +810,13 @@ Let's now try to eta-reduce some of the functions and ensure that we
 mastered the skill of eta-reducing.
 -}
 divideTenBy :: Int -> Int
-divideTenBy x = div 10 x
+divideTenBy = div 10
 
--- TODO: type ;)
-listElementsLessThan x l = filter (< x) l
+listElementsLessThan :: Int -> [Int] -> [Int]
+listElementsLessThan x = filter (< x)
 
 -- Can you eta-reduce this one???
-pairMul xs ys = zipWith (*) xs ys
+pairMul = zipWith (*)
 
 {- |
 =🛡= Lazy evaluation
